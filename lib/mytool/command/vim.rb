@@ -9,7 +9,7 @@ module Mytool
     desc 'install', "set up vim"
     def install
       if File.directory? File.join(ENV['HOME'], '.vim')
-        say "already exist!", :yellow
+        say "Vim confif is already exist!", :yellow
       else
         if system("git clone git@github.com:n-sakuma/dot.vim.git ~/.vim")
           say "clone success!", :cyan, :bold
