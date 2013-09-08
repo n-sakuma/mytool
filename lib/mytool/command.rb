@@ -9,6 +9,13 @@ module Mytool
       invoke 'vim:install'
       invoke 'zsh:install'
     end
+
+    desc 'update_all', "update setting"
+    def update_all
+      invoke 'vim:update'
+      invoke 'zsh:update'
+    end
+
     register(Mytool::Vim, 'vim', 'vim [COMMAND]', 'Vim controll')
     register(Mytool::Zsh, 'zsh', 'zsh [COMMAND]', 'Zsh controll')
   end

@@ -20,6 +20,25 @@ module Mytool
       end
     end
 
+    desc 'update', 'update setting'
+    def update
+      dir = File.join(ENV['HOME'], '.zsh.d')
+      if File.directory? dir
+        FileUtils.chdir(dir) do
+          git_status = `git status -s`
+          if git_status.empty?
+            if system("git pull")
+              say "update success!", :cyan
+            end
+          else
+            say "ZSH conf is not clean", :yellow
+            puts git_status
+          end
+        end
+      else
+        say "ZSH setting update failed", :red
+      end
+    end
   end
 
 end
