@@ -1,13 +1,8 @@
 require 'thor'
+require_relative "command/vim"
 
 module Mytool
   class Command < Thor
-    include Thor::Actions
-
-    desc "vim", "My vim setting"
-    def vim
-      say "vim", :cyan
-    end
-
+    register(Mytool::Vim, 'vim', 'vim [COMMAND]', 'subcommand')
   end
 end
