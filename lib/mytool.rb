@@ -1,5 +1,8 @@
 require "mytool/version"
+require "mytool/command"
 
 module Mytool
-  # Your code goes here...
+  def self.cli_start
+    Mytool::Command.start
+  end
 end
