@@ -2,17 +2,18 @@ require "thor"
 
 module Mytool
 
-  class Vim < Thor
+  class Zsh < Thor
     include Thor::Actions
-    namespace :vim
+    namespace :zsh
 
-    desc 'install', "set up vim"
+    desc 'install', "set up zsh"
     def install
-      if File.directory? File.join(ENV['HOME'], '.vim')
-        say "Vim confif is already exist!", :yellow
+      if File.directory? File.join(ENV['HOME'], '.zsh.d')
+        say "Zsh config is already exist!", :yellow
       else
-        if system("git clone git@github.com:n-sakuma/dot.vim.git ~/.vim")
+        if system("git clone git@github.com:n-sakuma/zsh.d.git ~/.zsh.d")
           say "clone success!", :cyan, :bold
+          # TODO symlink
         else
           say "faild!", :red
         end
@@ -21,7 +22,7 @@ module Mytool
 
     desc 'update', 'update setting'
     def update
-      dir = File.join(ENV['HOME'], '.vim')
+      dir = File.join(ENV['HOME'], '.zsh.d')
       if File.directory? dir
         FileUtils.chdir(dir) do
           git_status = `git status -s`
@@ -30,12 +31,12 @@ module Mytool
               say "update success!", :cyan
             end
           else
-            say "Vim conf is not clean", :yellow
+            say "ZSH conf is not clean", :yellow
             puts git_status
           end
         end
       else
-        say "Vim setting update failed", :red
+        say "ZSH setting update failed", :red
       end
     end
   end

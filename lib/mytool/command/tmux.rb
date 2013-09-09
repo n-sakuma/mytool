@@ -2,17 +2,18 @@ require "thor"
 
 module Mytool
 
-  class Vim < Thor
+  class Tmux < Thor
     include Thor::Actions
-    namespace :vim
+    namespace :tmux
 
-    desc 'install', "set up vim"
+    desc 'install', "set up tmux"
     def install
-      if File.directory? File.join(ENV['HOME'], '.vim')
-        say "Vim confif is already exist!", :yellow
+      if File.directory? File.join(ENV['HOME'], '.tmux.d')
+        say "tmux config is already exist!", :yellow
       else
-        if system("git clone git@github.com:n-sakuma/dot.vim.git ~/.vim")
+        if system("git clone git@github.com:n-sakuma/tmux.d.git ~/.tmux.d")
           say "clone success!", :cyan, :bold
+          # TODO symlink
         else
           say "faild!", :red
         end
@@ -21,7 +22,7 @@ module Mytool
 
     desc 'update', 'update setting'
     def update
-      dir = File.join(ENV['HOME'], '.vim')
+      dir = File.join(ENV['HOME'], '.tmux.d')
       if File.directory? dir
         FileUtils.chdir(dir) do
           git_status = `git status -s`
@@ -30,12 +31,12 @@ module Mytool
               say "update success!", :cyan
             end
           else
-            say "Vim conf is not clean", :yellow
+            say "tmux conf is not clean", :yellow
             puts git_status
           end
         end
       else
-        say "Vim setting update failed", :red
+        say "tmux setting update failed", :red
       end
     end
   end
